@@ -27,4 +27,4 @@ public interface EnterCallback {
     void onCloseLoadingView();
 
     void onEnterComplete();
-}
+    }

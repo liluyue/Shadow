@@ -19,10 +19,12 @@
 package com.tencent.shadow.core.runtime;
 
 import android.app.Activity;
+import android.app.Application;
 import android.app.Fragment;
 import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PersistableBundle;
@@ -104,6 +106,87 @@ public class ShadowInstrumentation extends Instrumentation {
 
     public void callActivityOnCreate(ShadowActivity activity, Bundle icicle, PersistableBundle persistentState) {
     }
+    public ShadowActivity startShadowActivitySync(Intent intent) {
+        return new ShadowActivity();
+    }
+
+    public ShadowActivity waitShadowActivityForMonitor(ActivityMonitor monitor) {
+        return new ShadowActivity();
+    }
+
+    public ShadowActivity waitShadowActivityForMonitorWithTimeout(ActivityMonitor monitor, long timeOut) {
+        return new ShadowActivity();
+    }
+
+    public boolean invokeMenuActionSync(ShadowActivity targetActivity,
+                                        int id, int flag) {
+        return false;
+    }
+
+    public boolean invokeContextMenuAction(ShadowActivity targetActivity, int id, int flag) {
+        return false;
+    }
+
+    public ShadowActivity newShadowActivity(Class<?> clazz, Context context,
+                                            IBinder token, ShadowApplication application, Intent intent, ActivityInfo info,
+                                            CharSequence title, ShadowActivity parent, String id,
+                                            Object lastNonConfigurationInstance) throws InstantiationException, IllegalAccessException {
+        return (ShadowActivity) clazz.newInstance();
+    }
+
+    public void callActivityOnRestoreInstanceState(ShadowActivity activity, Bundle savedInstanceState) {
+
+    }
+
+    public void callActivityOnRestoreInstanceState(ShadowActivity activity, Bundle savedInstanceState, PersistableBundle persistableBundle) {
+
+    }
+
+    public void callActivityOnPostCreate(ShadowActivity activity, Bundle icicle) {
+    }
+
+    public void callActivityOnPostCreate(ShadowActivity activity, Bundle icicle, PersistableBundle persistableBundle) {
+    }
+
+    public void callActivityOnNewIntent(ShadowActivity activity, Intent intent) {
 
 
+    }
+
+    public void callActivityOnStart(ShadowActivity activity) {
+
+    }
+
+    public void callActivityOnRestart(ShadowActivity activity) {
+
+    }
+
+    public void callActivityOnResume(ShadowActivity activity) {
+
+
+    }
+
+    public void callActivityOnStop(ShadowActivity activity) {
+
+
+    }
+
+    public void callActivityOnPause(ShadowActivity activity) {
+
+
+    }
+
+    public void callActivityOnUserLeaving(ShadowActivity activity) {
+
+
+    }
+
+    public void callActivityOnSaveInstanceState(ShadowActivity activity, Bundle outState) {
+
+    }
+
+    public void callActivityOnSaveInstanceState(ShadowActivity activity, Bundle outState,
+                                                PersistableBundle outPersistentState) {
+
+    }
 }

@@ -36,7 +36,10 @@ class InstrumentationTransform : SpecificTransform() {
 
         val newShadowApplicationMethods = shadowInstrumentation.getDeclaredMethods("newShadowApplication")
 
-        val newShadowActivityMethod = shadowInstrumentation.getDeclaredMethod("newShadowActivity")
+        val newShadowActivityMethods = shadowInstrumentation.getDeclaredMethods("newShadowActivity")
+        val startActivitySyncMethod = shadowInstrumentation.getDeclaredMethod("startShadowActivitySync")
+        val waitForMonitorMethods = shadowInstrumentation.getDeclaredMethods("waitShadowActivityForMonitor")
+        val waitForMonitorWithTimeout = shadowInstrumentation.getDeclaredMethods("waitShadowActivityForMonitorWithTimeout")
 
         newStep(object : TransformStep {
             override fun filter(allInputClass: Set<CtClass>) = allInputClass
@@ -56,8 +59,12 @@ class InstrumentationTransform : SpecificTransform() {
                 ctClass.defrost()
                 val codeConverter = CodeConverter()
                 newShadowApplicationMethods.forEach { codeConverter.redirectMethodCall("newApplication", it) }
+                waitForMonitorMethods.forEach { codeConverter.redirectMethodCall("waitForMonitor", it) }
+                waitForMonitorWithTimeout.forEach { codeConverter.redirectMethodCall("waitForMonitorWithTimeout", it) }
+                newShadowActivityMethods.forEach { codeConverter.redirectMethodCall("newActivity", it) }
 
-                codeConverter.redirectMethodCall("newActivity", newShadowActivityMethod)
+                codeConverter.redirectMethodCall("startActivitySync", startActivitySyncMethod)
+
                 try {
                     ctClass.instrument(codeConverter)
                 } catch (e: Exception) {

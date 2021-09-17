@@ -457,7 +457,11 @@ publishing {
                 url "https://maven.pkg.github.com/" + "${System.env.GITHUB_REPOSITORY}".toLowerCase()
             }
         } else {
-            mavenLocal()
+//            mavenLocal()
+            maven {
+                url "/Users/liluyue/work/ProjectADocker/localRepo"
+                println(url)
+            }
         }
     }
 }
