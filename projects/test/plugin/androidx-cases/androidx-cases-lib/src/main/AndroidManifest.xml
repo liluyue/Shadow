@@ -7,7 +7,7 @@
         tools:replace="android:appComponentFactory"
         android:appComponentFactory="com.tencent.shadow.test.plugin.androidx_cases.lib.TestComponentFactory">
 
-        <activity android:name=".LiveDataWithActivityTestActivity" />
+        <activity android:name=".LiveDataWithActivityTestActivity" android:theme="@style/Theme.AppCompat" />
         <activity android:name=".AppComponentFactoryTestActivity" />
     </application>
 </manifest>

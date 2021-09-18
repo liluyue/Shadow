@@ -48,6 +48,11 @@ public class LiveDataWithActivityTest extends PluginAndroidxAppTest {
     }
 
     @Test
+    public void testLayoutInflater() {
+//        Espresso.onView(ViewMatchers.withText("true")).perform(ViewActions.click());
+    }
+
+    @Test
     public void testLiveDataWithActivity() {
         matchTextWithViewTag("data", "");
 

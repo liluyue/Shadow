@@ -52,6 +52,7 @@ public class MainActivity extends Activity {
         final Spinner partKeySpinner = new Spinner(this);
         ArrayAdapter<String> partKeysAdapter = new ArrayAdapter<>(this, R.layout.part_key_adapter);
         partKeysAdapter.addAll(
+                Constant.PART_KEY_PLUGIN_ANDROIDX,
                 Constant.PART_KEY_PLUGIN_MAIN_APP,
                 Constant.PART_KEY_MULTIDEX_V1_0_2,
                 Constant.PART_KEY_MULTIDEX_V2_0_1
@@ -69,6 +70,9 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(MainActivity.this, PluginLoadActivity.class);
                 intent.putExtra(Constant.KEY_PLUGIN_PART_KEY, partKey);
                 switch (partKey) {
+                    case Constant.PART_KEY_PLUGIN_ANDROIDX:
+                        intent.putExtra(Constant.KEY_ACTIVITY_CLASSNAME, "com.tencent.shadow.test.plugin.androidx_cases.lib.LiveDataWithActivityTestActivity");
+                        break;
                     case Constant.PART_KEY_PLUGIN_MAIN_APP:
                         intent.putExtra(Constant.KEY_ACTIVITY_CLASSNAME, "com.tencent.shadow.test.plugin.general_cases.lib.usecases.application.TestApplicationActivity");
                         break;
