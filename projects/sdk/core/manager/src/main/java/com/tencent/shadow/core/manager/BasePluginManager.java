@@ -21,6 +21,7 @@ package com.tencent.shadow.core.manager;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.tencent.shadow.core.common.Logger;
 import com.tencent.shadow.core.common.LoggerFactory;
@@ -31,6 +32,7 @@ import com.tencent.shadow.core.manager.installplugin.InstalledDao;
 import com.tencent.shadow.core.manager.installplugin.InstalledPlugin;
 import com.tencent.shadow.core.manager.installplugin.InstalledPluginDBHelper;
 import com.tencent.shadow.core.manager.installplugin.InstalledType;
+import com.tencent.shadow.core.manager.installplugin.MinFileUtils;
 import com.tencent.shadow.core.manager.installplugin.ODexBloc;
 import com.tencent.shadow.core.manager.installplugin.PluginConfig;
 import com.tencent.shadow.core.manager.installplugin.UnpackManager;
@@ -164,8 +166,9 @@ public abstract class BasePluginManager {
 
     /**
      * odex优化
-     * @param uuid 插件包的uuid
-     * @param type 要oDex的插件类型 @class IntalledType  loader or runtime
+     *
+     * @param uuid    插件包的uuid
+     * @param type    要oDex的插件类型 @class IntalledType  loader or runtime
      * @param apkFile 插件apk文件
      */
     public final void oDexPluginLoaderOrRunTime(String uuid, int type, File apkFile) throws InstallPluginException {
@@ -208,8 +211,8 @@ public abstract class BasePluginManager {
     /**
      * 插件apk的so解压
      *
-     * @param uuid 插件包的uuid
-     * @param type 要oDex的插件类型 @class IntalledType  loader or runtime
+     * @param uuid    插件包的uuid
+     * @param type    要oDex的插件类型 @class IntalledType  loader or runtime
      * @param apkFile 插件apk文件
      */
     public final void extractLoaderOrRunTimeSo(String uuid, int type, File apkFile) throws InstallPluginException {
@@ -252,6 +255,11 @@ public abstract class BasePluginManager {
             if (!deletePart(installedPlugin.runtimeFile)) {
                 suc = false;
             }
+            try {
+                MinFileUtils.deleteDirectory(installedPlugin.runtimeFile.pluginFile.getParentFile().getParentFile());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         if (installedPlugin.pluginLoaderFile != null) {
             if (!deletePart(installedPlugin.pluginLoaderFile)) {
@@ -274,13 +282,19 @@ public abstract class BasePluginManager {
         if (!part.pluginFile.delete()) {
             suc = false;
         }
-        if (part.oDexDir != null) {
-            if (!part.oDexDir.delete()) {
+        if (part.oDexDir != null && part.oDexDir.exists()) {
+            try {
+                MinFileUtils.deleteDirectory(part.oDexDir);
+            } catch (IOException e) {
+                e.printStackTrace();
                 suc = false;
             }
         }
-        if (part.libraryDir != null) {
-            if (!part.libraryDir.delete()) {
+        if (part.libraryDir != null && part.libraryDir.exists()) {
+            try {
+                MinFileUtils.deleteDirectory(part.libraryDir);
+            } catch (IOException e) {
+                e.printStackTrace();
                 suc = false;
             }
         }

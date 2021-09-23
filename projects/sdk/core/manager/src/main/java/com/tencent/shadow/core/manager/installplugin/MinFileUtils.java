@@ -116,7 +116,7 @@ public class MinFileUtils {
      * @throws IOException              in case deletion is unsuccessful
      * @throws IllegalArgumentException if {@code directory} does not exist or is not a directory
      */
-    private static void deleteDirectory(final File directory) throws IOException {
+    public static void deleteDirectory(final File directory) throws IOException {
         if (!directory.exists()) {
             return;
         }
